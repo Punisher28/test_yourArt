@@ -16,12 +16,24 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//******Custom APi List item********
 Route::get('articles', 'ArticleController@index');
 Route::get('/articles', 'ArticleControler@showArt');
 Route::get('/article/{id}','ArticleControler@showID');
 Route::put('articles/{article}', 'ArticleController@update');
 Route::delete('articles/{article}', 'ArticleController@delete');
 
-    Route::get('test',function(){
-        return response([1,2,3,4],200);
-    });
+
+
+//******** Custom Auth PassportAPI
+
+Route::post('login', 'API\AuthController@login');
+Route::post('register', 'API\AuthController@register');
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('details', 'API\AuthController@details');
+});
+/*Route::middleware('auth:api')->group(function () {
+    Route::get('/logout', 'API\AuthController@logout')->name('logout');
+});*/
+Route::get('logout', 'API\AuthController@logout');
