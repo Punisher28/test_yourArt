@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use Lcobucci\JWT\Parser;
 
@@ -67,14 +68,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        /*$value = $request->bearerToken();
-        $id = (new Parser())->parse($value)->getHeader('jti');
-        $token = $request->user()->tokens->find($id);
+        $token = $request->user()->token();
         $token->revoke();
-        return Response('You are successfully logged out', 200);*/
-        $request->user()->token()->revoke();
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+        Cookie::queue(Cookie::forget('token'));
+        $response = ['message' => 'You have been succesfully logged out!', 'code' => 200];
+        return response()->json($response, 200);
+
     }
 }
