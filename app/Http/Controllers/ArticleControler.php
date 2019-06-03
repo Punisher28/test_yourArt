@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Input;
@@ -39,19 +40,37 @@ class ArticleControler extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function searchApi(Request $request)
+    {
+        if ($request->has('queryApp')) {
+            $result = Article::where('Name', 'LIKE', '%' . $request->queryApp . '%')->get();
+            if (count($result) > 0) {
+                return response()->json($result);
+            } else {
+                return 'no such file';
+            }
+        }
+    }
+
+
     public function show()
     {
         $articles = DB::table('articles')->paginate(6);
-        return view('articles', ['articles'=>$articles]);
+        return view('articles', ['articles' => $articles]);
     }
-    public function showID($id){
-        $article = DB::table('articles')->find($id);
-        return view('article', ['articles'=>$article]);
-    }
-    public function searchA(){
-        $q = Input::get ( 'q' );
-        $user = DB::table('articles')->where('name','LIKE','%'.$q.'%')->get();
 
-            return view('searchResult')->withDetails($user)->withQuery( $q );
+    public function showID($id)
+    {
+        $article = DB::table('articles')->find($id);
+        return view('article', ['articles' => $article]);
     }
+
+    public function searchA()
+    {
+        $q = Input::get('q');
+        $result = DB::table('articles')->where('name', 'LIKE', '%' . $q . '%')->get();
+        return view('searchResult')->withDetails($result)->withQuery($q);
+    }
+
 }

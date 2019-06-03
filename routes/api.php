@@ -25,6 +25,10 @@ Route::get('/article/{id}', 'ArticleControler@showID');
 Route::put('articles/{article}', 'ArticleController@update');
 Route::delete('articles/{article}', 'ArticleController@delete');
 
+//*****Search
+
+Route::post('/search', 'ArticleControler@searchApi');
+
 
 //******** Custom Auth PassportAPI
 
