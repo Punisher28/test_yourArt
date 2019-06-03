@@ -50,6 +50,8 @@ class ArticleControler extends Controller
             } else {
                 return 'no such file';
             }
+        }else{
+            return 'Упппс щось пішло не так';
         }
     }
 
