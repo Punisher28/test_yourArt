@@ -33,8 +33,9 @@
             <a class="navbar-brand " href="/">
                 <img src="{{ asset('img/logo.png') }}" height="128" alt="">
             </a>
-            <form class="form-inline">
-                <input class="form-control" type="search" placeholder="Пошук" aria-label="Search">
+            <form action="/search" method = "POST" role = "search" class="form-inline">
+                {{csrf_field ()}}
+                <input class="form-control" name="q" type="search" placeholder="Пошук" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Пошук</button>
             </form>
 

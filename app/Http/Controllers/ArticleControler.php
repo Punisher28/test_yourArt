@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Input;
 
 class ArticleControler extends Controller
 {
@@ -46,5 +47,11 @@ class ArticleControler extends Controller
     public function showID($id){
         $article = DB::table('articles')->find($id);
         return view('article', ['articles'=>$article]);
+    }
+    public function searchA(){
+        $q = Input::get ( 'q' );
+        $user = DB::table('articles')->where('name','LIKE','%'.$q.'%')->get();
+
+            return view('searchResult')->withDetails($user)->withQuery( $q );
     }
 }

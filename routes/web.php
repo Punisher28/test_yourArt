@@ -1,5 +1,7 @@
 <?php
 
+use App\Article;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +31,8 @@ Route::get('/delivery', function () {
 
 Route::get('/articles', 'ArticleControler@show');
 Route::get('/article/{id}','ArticleControler@showID');
+
+Route::post('/search', 'ArticleControler@searchA');
 
 
 Route::group(['prefix' => 'admin'], function () {
