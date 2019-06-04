@@ -9,17 +9,8 @@ use Illuminate\Support\Facades\Input;
 
 class ArticleControler extends Controller
 {
-    public function index()
-    {
-        return Article::all();
-    }
 
-    public function showArt()
-    {
-        $articles = DB::table('articles')->get();
-        return $articles;
-    }
-
+    //////--------API-------
     public function store(Request $request)
     {
         $article = Article::create($request->all());
@@ -45,14 +36,33 @@ class ArticleControler extends Controller
     {
         if ($request->has('queryApp')) {
             $result = Article::where('Name', 'LIKE', '%' . $request->queryApp . '%')->get();
-            
-                return response()->json($result);
-            
+
+            return response()->json($result);
+
         }else{
             return 'Упппс щось пішло не так';
         }
     }
+    public function showArt()
+    {
+        $articles = DB::table('articles')->get();
+        return $articles;
+    }
 
+    public function showIDAPI($id)
+    {
+        $article = DB::table('articles')->find($id);
+        return response()->json($article);
+    }
+    //////-------WEB------
+
+
+
+
+    public function index()
+    {
+        return Article::all();
+    }
 
     public function show()
     {

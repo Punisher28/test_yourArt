@@ -19,9 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //******Custom APi List item********
-Route::get('articles', 'ArticleController@index');
 Route::get('/articles', 'ArticleControler@showArt');
-Route::get('/article/{id}', 'ArticleControler@showID');
+Route::get('/article/{id}', 'ArticleControler@showIDAPI');
 Route::put('articles/{article}', 'ArticleController@update');
 Route::delete('articles/{article}', 'ArticleController@delete');
 
