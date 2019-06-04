@@ -45,11 +45,9 @@ class ArticleControler extends Controller
     {
         if ($request->has('queryApp')) {
             $result = Article::where('Name', 'LIKE', '%' . $request->queryApp . '%')->get();
-            if (count($result) > 0) {
+            
                 return response()->json($result);
-            } else {
-                return 'no such file';
-            }
+            
         }else{
             return 'Упппс щось пішло не так';
         }
